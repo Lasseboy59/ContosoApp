@@ -1,5 +1,5 @@
-﻿<form>
-    <h3>Student Form</h3>
+﻿<form ng-init="getStudentById()">
+    <h3>Student Update Form</h3>
     <div class="form-group">
         <label for="first-name">First Name</label>
         <input type="text" class="form-control" id="first-name" ng-model="student.FirstName" placeholder="First name">
@@ -20,5 +20,5 @@
         <input type="text" class="form-control" id="department" ng-model="student.Department" placeholder="Department">
     </div>
 
-    <button type="submit" class="btn btn-primary" ng-click="saveStudent(student)">Submit</button>
+    <button type="submit" class="btn btn-primary" ng-click="updateStudent(student)">Update</button>
 </form>

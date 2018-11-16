@@ -15,11 +15,19 @@
             }
         }).state("studentList",
         {
-
             url: '/student-list',
             views: {
                 'subview': {
                     templateUrl: "student.list.html",
+                    controller: "StudentController"
+                }
+            }
+        }).state("editStudent",
+        {
+            url: '/student-edit-form/{studentId}',
+            views: {
+                'subview': {
+                    templateUrl: "student.edit.html",
                     controller: "StudentController"
                 }
             }
