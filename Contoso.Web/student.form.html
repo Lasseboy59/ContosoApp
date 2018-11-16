@@ -20,5 +20,10 @@
         <input type="text" class="form-control" id="department" ng-model="student.Department" placeholder="Department">
     </div>
 
+    <div class="form-group">
+        <label for="department"> Photo </label>
+        <input type="file" contoso-files="getTheStudentPhoto($files)" class="form-control" placeholder="Department">
+    </div>
+
     <button type="submit" class="btn btn-primary" ng-click="saveStudent(student)">Submit</button>
 </form>

@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th scope="col">#</th>
+        <th>Photo</th>
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
         <th scope="col">Roll</th>
@@ -11,6 +12,7 @@
     <tbody>
     <tr ng-repeat="student in students">
         <th scope="row">{{student.Id}}</th>
+        <td><img src="{{student.Photo}}" width="100"/></td>
         <td>{{student.FirstName}}</td>
         <td>{{student.LastName}}</td>
         <td>{{student.Roll}}</td>

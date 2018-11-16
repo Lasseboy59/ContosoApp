@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using System.Web.Optimization;
 using Contoso.Data;
 using Contoso.Domain;
 using Console = System.Console;
@@ -50,7 +53,47 @@ namespace Contoso.API.Controllers
             _context.Students.Remove(student);
             _context.SaveChanges();
             return Ok(student);
+        }
 
+        [HttpPost]
+        [Route("api/upload-student-photo/{studentId}")]
+        public IHttpActionResult UploadStudentPhoto(int studentId)
+        {
+            _context = new ContosoContext();
+            var student = _context.Students.Find(studentId);
+
+            string destinationPath = @"C:\Users\lauri\source\repos\ContosoApp\Contoso.Web\Documents\";
+            HttpFileCollection files = HttpContext.Current.Request.Files;
+            for (int i = 0; i < files.Count; i++)
+            {
+                HttpPostedFile file = files[i];
+                if (file.ContentLength > 0)
+                {
+                    string fileName = new FileInfo(file.FileName).Name;
+                    string fileExtension = new FileInfo(file.FileName).Extension;
+
+                    if (fileExtension == ".jpg" || fileExtension == ".JPG" || fileExtension == ".png")
+                    {
+                        Guid id = Guid.NewGuid();
+                        fileName = id.ToString() + "_" + fileName;
+                        try
+                        {
+                            file.SaveAs(destinationPath + Path.GetFileName(fileName));
+                        }
+                        catch (Exception exception)
+                        {
+                            var message = exception.Message;
+                            return Ok(message);
+                        }
+                        student.Photo = "Documents/" + fileName;
+                        _context.Entry(student).State = EntityState.Modified;
+                        _context.SaveChanges();
+                        return Ok("Ok");
+                    }
+
+                }
+            }
+            return Ok("Photo could not be uploaded!");
         }
     }
 }

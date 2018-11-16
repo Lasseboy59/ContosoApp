@@ -12,5 +12,6 @@ namespace Contoso.Domain
         public string LastName { get; set; }
         public string Roll { get; set; }
         public string Department { get; set; }
+        public string Photo { get; set; }
     }
 }
