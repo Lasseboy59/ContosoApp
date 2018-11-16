@@ -1,5 +1,5 @@
 ﻿
-angular.module("contosoApp").controller("StudentController", function ($scope, $http, $stateParams) {
+angular.module("contosoApp").controller("StudentController", function ($scope, $http, $stateParams, toastr) {
     //$scope.whatisjavascript = "Javascript is like a wife!";
     //$scope.whatisangularjs = "AngularJs is like a girlfriend";
     
@@ -9,6 +9,14 @@ angular.module("contosoApp").controller("StudentController", function ($scope, $
 
         $http.post("http://localhost:55742/contoso/student", data).then(function(response) {
             console.log(response);
+            if (response.status === 200 || response.status === 201 && response.statusText === "Created") {
+                toastr.success("Student information is saved successfully!");
+            }
+        }, function (error) {
+            if (error.status === 404) {
+                toastr.error("API not found!");
+            }
+
         });
     }
 
