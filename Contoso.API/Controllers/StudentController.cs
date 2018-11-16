@@ -27,29 +27,29 @@ namespace Contoso.API.Controllers
             return _context.Students.Find(id);
         }
 
-        public Student PostStudent(Student student)
+        public IHttpActionResult PostStudent(Student student)
         {
             _context = new ContosoContext();
             _context.Students.Add(student);
             _context.SaveChanges();
-
-            return student;
+            return CreatedAtRoute("DefaultApi", new { id = student.Id }, student);
         }
 
-        public Student PutStudent(Student student)
+        public IHttpActionResult PutStudent(Student student)
         {
             _context = new ContosoContext();
             _context.Entry(student).State = EntityState.Modified;
             _context.SaveChanges();
-            return student;
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        public void DeleteStudent(int id)
+        public IHttpActionResult DeleteStudent(int id)
         {
             _context = new ContosoContext();
             var student = _context.Students.Find(id);
             _context.Students.Remove(student);
             _context.SaveChanges();
+            return Ok(student);
 
         }
     }

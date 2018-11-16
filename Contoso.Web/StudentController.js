@@ -1,7 +1,7 @@
 ﻿
 angular.module("contosoApp").controller("StudentController", function ($scope, $http, $stateParams) {
-    $scope.whatisjavascript = "Javascript is like a wife!";
-    $scope.whatisangularjs = "AngularJs is like a girlfriend";
+    //$scope.whatisjavascript = "Javascript is like a wife!";
+    //$scope.whatisangularjs = "AngularJs is like a girlfriend";
     
     $scope.saveStudent = function(data) {
 
@@ -15,20 +15,27 @@ angular.module("contosoApp").controller("StudentController", function ($scope, $
     $scope.getStudents = function() {
         $http.get("http://localhost:55742/contoso/student").then(function(response) {
             $scope.students = response.data;
+            console.log(response);
         });
     }
 
     $scope.getStudentById = function() {
         $http.get("http://localhost:55742/contoso/student/" + $stateParams.studentId).then(function(response) {
             $scope.student = response.data;
+            console.log(response);
         });
     }
 
-    $scope.updateStudent = function(student) {
-        $http.put("http://localhost:55742/contoso/student", student);
+    $scope.updateStudent = function (student) {
+        $http.put("http://localhost:55742/contoso/student/" + $stateParams.studentId, student).then(function(response) {
+            console.log(response);
+        });
+
     }
 
     $scope.deleteStudent = function (studentId) {
-        $http.delete("http://localhost:55742/contoso/student/" + studentId);
+        $http.delete("http://localhost:55742/contoso/student/" + studentId).then(function(response) {
+            console.log(response);
+        });
     }
 });
