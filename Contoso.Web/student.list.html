@@ -10,8 +10,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="student in students">
-        <th scope="row">{{student.Id}}</th>
+    <!-- <tr ng-repeat="student in students"> -->
+    <tr dir-paginate="student in students | itemsPerPage:3">
+    <th scope="row">{{student.Id}}</th>
         <td><img src="{{student.Photo}}" width="100"/></td>
         <td>{{student.FirstName}}</td>
         <td>{{student.LastName}}</td>
@@ -23,3 +24,4 @@
 
     </tbody>
 </table>
+<dir-pagination-controls></dir-pagination-controls>

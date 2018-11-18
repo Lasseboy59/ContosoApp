@@ -22,8 +22,26 @@
 
     <div class="form-group">
         <label for="department"> Photo </label>
-        <input type="file" contoso-files="getTheStudentPhoto($files)" class="form-control" placeholder="Department">
+        <input type="file" contoso-files="getTheStudentPhoto($files)" onchange="imagePreview(event)" class="form-control" placeholder="Department">
+    </div>
+    
+    <div class="form-group">
+        <label class="col-lg-3 control-label"></label>
+        <div class="col-lg-9">
+            <img id="photo" height="100" width="100"/>
+        </div>
+
     </div>
 
     <button type="submit" class="btn btn-primary" ng-click="saveStudent(student)">Submit</button>
 </form>
+<script>
+    function imagePreview(event) {
+        var fileReader = new FileReader();
+        fileReader.onload = function() {
+            var photo = document.getElementById('photo');
+            photo.src = fileReader.result;
+        }
+        fileReader.readAsDataURL(event.target.files[0]);
+    }
+</script>
